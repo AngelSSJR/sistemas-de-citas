@@ -1,0 +1,74 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Reservar cita | EPS Citas Pro{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="panel-head">
+        <h1>Reservar cita medica</h1>
+        <p>Agenda una nueva atencion para un paciente ya registrado.</p>
+    </div>
+
+    <form class="form-grid" method="POST" novalidate>
+        <label>
+            Documento del paciente
+            <input type="text" name="documento" inputmode="numeric" required value="{{ form_data.documento }}">
+        </label>
+
+        <label>
+            Medico
+            <select name="medico_id" required>
+                <option value="">Selecciona un medico</option>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}" {% if form_data.medico_id == (medico.id|string) %}selected{% endif %}>
+                        {{ medico.nombre }} - {{ medico.especialidad }} ({{ medico.consultorio }})
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Tipo de cita
+            <select name="tipo_cita" required>
+                {% for item in appointment_types %}
+                    <option value="{{ item }}" {% if form_data.tipo_cita == item %}selected{% endif %}>{{ item.replace('_', ' ') }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Modalidad
+            <select name="modalidad" required>
+                {% for item in modalities %}
+                    <option value="{{ item }}" {% if form_data.modalidad == item %}selected{% endif %}>{{ item }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Fecha
+            <input type="date" name="fecha" required value="{{ form_data.fecha }}" data-min-today>
+        </label>
+
+        <label>
+            Hora
+            <input type="time" name="hora" required value="{{ form_data.hora }}" step="900">
+        </label>
+
+        <label class="full-width">
+            Sede
+            <input type="text" name="sede" required maxlength="120" value="{{ form_data.sede }}" placeholder="Ej: Sede Norte - Carrera 45 #12-32">
+        </label>
+
+        <label class="full-width">
+            Observaciones (opcional)
+            <textarea name="observaciones" rows="3" maxlength="255" placeholder="Notas adicionales para la atencion">{{ form_data.observaciones }}</textarea>
+        </label>
+
+        <div class="full-width form-actions">
+            <button class="btn btn-primary" type="submit">Reservar cita</button>
+            <a class="btn btn-ghost" href="{{ url_for('index') }}">Volver</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

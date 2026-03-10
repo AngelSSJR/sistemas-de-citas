@@ -1,0 +1,11 @@
+﻿{% extends "base.html" %}
+
+{% block title %}500 | EPS Citas Pro{% endblock %}
+
+{% block content %}
+<section class="panel center">
+    <h1>Error interno</h1>
+    <p>Ocurrio un error inesperado procesando la solicitud.</p>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Regresar al inicio</a>
+</section>
+{% endblock %}

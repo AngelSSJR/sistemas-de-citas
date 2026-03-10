@@ -1,0 +1,80 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Actualizar cita | EPS Citas Pro{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="panel-head">
+        <h1>Actualizar cita #{{ cita.id }}</h1>
+        <p>Paciente: {{ cita.paciente }} ({{ cita.documento }})</p>
+    </div>
+
+    <form class="form-grid" method="POST" novalidate>
+        <input type="hidden" name="cita_id" value="{{ cita.id }}">
+        <input type="hidden" name="documento" value="{{ cita.documento }}">
+
+        <label>
+            Medico
+            <select name="medico_id" required>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}" {% if cita.medico_id == medico.id %}selected{% endif %}>
+                        {{ medico.nombre }} - {{ medico.especialidad }} ({{ medico.consultorio }})
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Tipo de cita
+            <select name="tipo_cita" required>
+                {% for item in appointment_types %}
+                    <option value="{{ item }}" {% if cita.tipo_cita == item %}selected{% endif %}>{{ item.replace('_', ' ') }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Fecha
+            <input type="date" name="fecha" required value="{{ cita.fecha }}" data-min-today>
+        </label>
+
+        <label>
+            Hora
+            <input type="time" name="hora" required value="{{ cita.hora }}" step="900">
+        </label>
+
+        <label>
+            Modalidad
+            <select name="modalidad" required>
+                {% for item in modalities %}
+                    <option value="{{ item }}" {% if cita.modalidad == item %}selected{% endif %}>{{ item }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Estado
+            <select name="estado" required>
+                {% for item in status_options %}
+                    <option value="{{ item }}" {% if cita.estado == item %}selected{% endif %}>{{ item }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label class="full-width">
+            Sede
+            <input type="text" name="sede" maxlength="120" required value="{{ cita.sede }}">
+        </label>
+
+        <label class="full-width">
+            Observaciones (opcional)
+            <textarea name="observaciones" rows="3" maxlength="255">{{ cita.observaciones or '' }}</textarea>
+        </label>
+
+        <div class="full-width form-actions">
+            <button class="btn btn-primary" type="submit">Guardar cambios</button>
+            <a class="btn btn-ghost" href="{{ url_for('consultar', documento=cita.documento) }}">Volver a consulta</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

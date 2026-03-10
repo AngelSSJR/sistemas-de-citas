@@ -1,0 +1,83 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Consultar citas | EPS Citas Pro{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="panel-head">
+        <h1>Consultar historial de citas</h1>
+        <p>Busca por documento del paciente para ver y administrar sus citas.</p>
+    </div>
+
+    <form class="search-form" method="POST">
+        <input type="text" name="documento" placeholder="Documento del paciente" required value="{{ documento }}">
+        <button class="btn btn-primary" type="submit">Consultar</button>
+    </form>
+</section>
+
+{% if paciente %}
+<section class="panel compact">
+    <div class="panel-head">
+        <h2>Paciente encontrado</h2>
+    </div>
+    <div class="patient-meta">
+        <span><strong>Nombre:</strong> {{ paciente.paciente }}</span>
+        <span><strong>Documento:</strong> {{ paciente.documento }}</span>
+        <span><strong>Telefono:</strong> {{ paciente.telefono }}</span>
+        <span><strong>Email:</strong> {{ paciente.email }}</span>
+        <span><strong>EPS:</strong> {{ paciente.eps }}</span>
+    </div>
+</section>
+
+<section class="panel">
+    <div class="panel-head">
+        <h2>Citas registradas</h2>
+    </div>
+
+    {% if citas %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Medico</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Modalidad</th>
+                        <th>Sede</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in citas %}
+                        <tr>
+                            <td>#{{ cita.id }}</td>
+                            <td>{{ cita.tipo_cita.replace('_', ' ') }}</td>
+                            <td>{{ cita.medico }}<br><small>{{ cita.especialidad }}</small></td>
+                            <td>{{ cita.fecha }}</td>
+                            <td>{{ cita.hora }}</td>
+                            <td>{{ cita.modalidad }}</td>
+                            <td>{{ cita.sede }}</td>
+                            <td><span class="pill pill-{{ cita.estado|lower }}">{{ cita.estado }}</span></td>
+                            <td>
+                                <div class="actions-inline">
+                                    <a class="table-link" href="{{ url_for('actualizar', cita_id=cita.id) }}">Editar</a>
+                                    <form method="POST" action="{{ url_for('cancelar', cita_id=cita.id) }}" data-confirm="Se cancelara la cita #{{ cita.id }}. Deseas continuar?">
+                                        <input type="hidden" name="documento" value="{{ documento }}">
+                                        <button class="btn-link-danger" type="submit">Cancelar</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty-state">Este paciente todavia no tiene citas registradas.</p>
+    {% endif %}
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,76 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Inicio | Sistemas de citas  {% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Panel principal</p>
+        <h1>Gestion profesional de citas medicas</h1>
+        <p class="lead">Registra pacientes, agenda citas y administra la atencion desde una sola plataforma.</p>
+    </div>
+    <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ url_for('registrar') }}">Nuevo paciente</a>
+        <a class="btn btn-secondary" href="{{ url_for('reservar') }}">Nueva cita</a>
+    </div>
+</section>
+
+<section class="metrics-grid">
+    <article class="metric-card">
+        <h3>Pacientes</h3>
+        <p>{{ metrics.pacientes }}</p>
+    </article>
+    <article class="metric-card">
+        <h3>Citas programadas</h3>
+        <p>{{ metrics.citas_programadas }}</p>
+    </article>
+    <article class="metric-card">
+        <h3>Citas para hoy</h3>
+        <p>{{ metrics.citas_hoy }}</p>
+    </article>
+</section>
+
+<section class="panel">
+    <div class="panel-head">
+        <h2>Proximas citas</h2>
+        <a class="link-action" href="{{ url_for('consultar') }}">Ver historial por paciente</a>
+    </div>
+
+    {% if citas_proximas %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Documento</th>
+                        <th>Medico</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in citas_proximas %}
+                        <tr>
+                            <td>#{{ cita.id }}</td>
+                            <td>{{ cita.paciente }}</td>
+                            <td>{{ cita.documento }}</td>
+                            <td>{{ cita.medico }}</td>
+                            <td>{{ cita.fecha }}</td>
+                            <td>{{ cita.hora }}</td>
+                            <td><span class="pill pill-{{ cita.estado|lower }}">{{ cita.estado }}</span></td>
+                            <td>
+                                <a class="table-link" href="{{ url_for('actualizar_by_id', cita_id=cita.id) }}">Editar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty-state">No hay citas programadas por ahora.</p>
+    {% endif %}
+</section>
+{% endblock %}

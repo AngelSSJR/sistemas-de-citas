@@ -1,0 +1,54 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Registrar paciente | EPS Citas Pro{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="panel-head">
+        <h1>Registrar paciente</h1>
+        <p>Completa los datos del paciente para habilitar la reserva de citas.</p>
+    </div>
+
+    <form class="form-grid" method="POST" novalidate>
+        <label>
+            Documento
+            <input type="text" name="documento" inputmode="numeric" minlength="6" maxlength="20" required value="{{ form_data.documento }}">
+        </label>
+
+        <label>
+            Nombres
+            <input type="text" name="nombres" minlength="2" maxlength="80" required value="{{ form_data.nombres }}">
+        </label>
+
+        <label>
+            Apellidos
+            <input type="text" name="apellidos" minlength="2" maxlength="80" required value="{{ form_data.apellidos }}">
+        </label>
+
+        <label>
+            Fecha de nacimiento
+            <input type="date" name="fecha_nacimiento" required value="{{ form_data.fecha_nacimiento }}" data-max-today>
+        </label>
+
+        <label>
+            Telefono
+            <input type="tel" name="telefono" inputmode="numeric" minlength="7" maxlength="20" required value="{{ form_data.telefono }}">
+        </label>
+
+        <label>
+            Correo
+            <input type="email" name="email" maxlength="120" required value="{{ form_data.email }}">
+        </label>
+
+        <label class="full-width">
+            EPS
+            <input type="text" name="eps" maxlength="80" required value="{{ form_data.eps }}" placeholder="Ej: Nueva EPS">
+        </label>
+
+        <div class="full-width form-actions">
+            <button class="btn btn-primary" type="submit">Guardar paciente</button>
+            <a class="btn btn-ghost" href="{{ url_for('index') }}">Volver</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
