@@ -24,17 +24,17 @@ DROP TABLE IF EXISTS `pacientes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pacientes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `documento` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombres` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `apellidos` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `documento` varchar(20) NOT NULL,
+  `nombres` varchar(80) NOT NULL,
+  `apellidos` varchar(80) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
-  `telefono` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `eps` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `eps` varchar(80) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_pacientes_documento` (`documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `pacientes` (
 
 LOCK TABLES `pacientes` WRITE;
 /*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
-INSERT INTO `pacientes` VALUES (1,'1000234567','Juan','Perez','1998-08-19','3001234567','juan.perez@email.com','Nueva EPS','2026-03-09 21:03:50');
 /*!40000 ALTER TABLE `pacientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-09 16:06:15
+-- Dump completed on 2026-03-12 15:01:05

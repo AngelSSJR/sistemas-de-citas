@@ -24,13 +24,13 @@ DROP TABLE IF EXISTS `medicos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medicos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `especialidad` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `consultorio` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(120) NOT NULL,
+  `especialidad` varchar(80) NOT NULL,
+  `consultorio` varchar(20) NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,6 @@ CREATE TABLE `medicos` (
 
 LOCK TABLES `medicos` WRITE;
 /*!40000 ALTER TABLE `medicos` DISABLE KEYS */;
-INSERT INTO `medicos` VALUES (1,'Carlos Ramirez','Medicina General','A-101',1,'2026-03-09 21:03:43'),(2,'Laura Mendoza','Odontologia','B-204',1,'2026-03-09 21:03:43'),(3,'Felipe Rojas','Pediatria','C-118',1,'2026-03-09 21:03:43'),(4,'Natalia Gomez','Ginecologia','D-305',1,'2026-03-09 21:03:43'),(5,'Andrea Suarez','Laboratorio Clinico','L-009',1,'2026-03-09 21:03:43');
 /*!40000 ALTER TABLE `medicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-09 16:06:16
+-- Dump completed on 2026-03-12 15:01:05
